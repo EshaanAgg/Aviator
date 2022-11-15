@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="m-6 p-6">
+    <h3>Filter Flights</h3>
+    <form method="GET" action="../../flights/">
+      <div class="row">
+
+        <div class="col m-6 p-6">
+          <div class="form-outline">
+            <label for="dep_ap">Departure</label>
+            <select id="dep_ap" class="form-control" name="dep_ap">
+              {% for cat in ap_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="arr_ap">Arrival</label>
+            <select id="arr_ap" class="form-control" name="arr_ap">
+              {% for cat in ap_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <hr />
+
+      <div class="row">
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="dep_time" class="form-label">Show departures after</label>
+            <input type="datetime-local" class="form-control" id="dep_time" name="datetime_min">
+          </div>
+
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="arr_time" class="form-label">Show arrivals before</label>
+            <input type="datetime-local" class="form-control" id="arr_time" name="datetime_max">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="airline">Airline</label>
+            <select id="airline" class="form-control" name="airline">
+              {% for cat in a_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <br>
+
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a href="/flights">
+        <button type="button" class="btn btn-outline-primary">
+          Reset Form
+        </button>
+      </a>
+
+    </form>
+  </div>
+</div>
+<hr />
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<hr />
+
+
+{% if len == 0 %}
+<div class="h-full">Sorry, there are no flights available at the moment that match your search.</div>
+{% else %}
+<table class="table">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Airline</th>
+      <th scope="col">Departure</th>
+      <th scope="col">Arrival</th>
+      <th scope="col">Fare</th>
+      <th scope="col">Booking</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for flight in queryset %}
+    <tr>
+      <th scope="row">{{ flight.airline }}</th>
+      <td>{{ flight.dep_airport }} {{ flight.dep_time }}</td>
+      <td>{{ flight.arr_airport }} {{ flight.arr_time }}</td>
+      <td>{{ flight.fare }}</td>
+      <td><a href="/book/{{ flight.id }}">
+          Open
+        </a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+{% endblock %}

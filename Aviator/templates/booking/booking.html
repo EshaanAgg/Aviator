@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="m-6 p-6">
+    <h3>Flight Details</h3>
+  </div>
+</div>
+<hr />
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<hr />
+
+<form>
+  <div class="row">
+    <div class="col">
+      <div class="form-outline"><label for="dep_ap">Departure</label>
+        <h3>{{ flight.dep_airport }}</h3>
+      </div>
+
+    </div>
+    <div class="col">
+      <div class="form-outline"><label for="arr_ap">At</label>
+        <h3>{{ flight.dep_time }}</h3>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-outline"><label for="arr_ap">Arrival</label>
+        <h3>{{ flight.arr_airport }}</h3>
+      </div>
+
+    </div>
+    <div class="col">
+      <div class="form-outline"><label for="arr_ap">At</label>
+        <h3>{{ flight.arr_time }}</h3>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-outline"><label for="arr_ap">Airline</label>
+        <h3>{{ flight.airline }}</h3>
+      </div>
+
+    </div>
+    <div class="col">
+      <div class="form-outline"><label for="arr_ap">Aircraft</label>
+        <h3>{{ flight.aircraft }}</h3>
+      </div>
+
+
+    </div>
+    <div class="col">
+      <div class="form-outline"><label for="arr_ap">Fare</label>
+        <h3>{{ flight.fare }}</h3>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form method="POST" action="/book/{{ flight.id }}">
+  <div class="col">
+    <div class="input-group">
+      {% csrf_token %}
+      <input class="form-control border-right-0 border" type="number" name="seat_count" placeholder="Seats" required />
+      <button type="submit" class="btn btn-primary"> Book seats </button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

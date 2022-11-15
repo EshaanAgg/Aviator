@@ -1,0 +1,98 @@
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+</style>
+<html>
+<title>
+    Aviator
+</title>
+
+<body>
+    <!-- Imports -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
+
+    <!-- Navbar Code -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Aviator</a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link">Welcome, {{ user.first_name }}</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/flights">Flight Details</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <li class="nav-item"><a href="/add_flight" class="nav-link">Add Flight</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a href="/mybookings" class="nav-link">My Bookings</a></li>
+                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+
+    {% block content %}
+    {% endblock %}
+    <br><br>
+
+</body>
+
+<!-- Footer -->
+<footer class="bg-light text-center text-lg-start border-dark-400">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        Made by
+    </div>
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <center>
+                    <h5 class="text-uppercase">Eshaan Aggarwal</h5>
+                    <p>
+                        eshaan.aggarwal.cse21@iitbhu.ac.in <br>
+                        21075030 <br>
+                        A coffee addict!! <br>
+                    </p>
+                </center>
+
+            </div>
+
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <center>
+                    <h5 class="text-uppercase">Anshiv Singla</h5>
+                    <p>
+                        anshiv.single.cse21@iitbhu.ac.in <br>
+                        21075012 <br>
+                        A problem solving addict <br>
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+
+
+</footer>
+
+</html>

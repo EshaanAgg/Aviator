@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="m-6 p-6">
+    <h3>My Bookings</h3>
+  </div>
+</div>
+<hr />
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<hr />
+
+
+{% if len == 0 %}
+<div class="h-full">You have no bookings.</div>
+{% else %}
+<table class="table">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Airline</th>
+      <th scope="col">Departure</th>
+      <th scope="col">Arrival</th>
+      <th scope="col">Seats</th>
+      <th scope="col">Total Fare</th>
+      <th scope="col">Flight Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in bookset %}
+    <tr>
+      <th scope="row">{{ book.fl_id.airline }}</th>
+      <td>{{ book.fl_id.dep_airport }} {{ book.fl_id.dep_time }}</td>
+      <td>{{ book.fl_id.arr_airport }} {{ book.fl_id.arr_time }}</td>
+      <td>{{ book.seat_n }}</td>
+      <td>{{ book.total_fare }}</td>
+      <td><a href="/book/{{ book.fl_id_id }}">
+          Open Flight
+        </a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+{% endblock %}

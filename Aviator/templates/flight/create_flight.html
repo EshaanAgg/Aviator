@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="m-6 p-6">
+    <h3>Enter Flight Details</h3>
+    <form method="POST" action="/add_flight/">
+      {% csrf_token %}
+
+      <div class="row">
+
+        <div class="col m-6 p-6">
+          <div class="form-outline">
+            <label for="airline">Airline</label>
+            <select id="airline" class="form-control" name="airline" required>
+              {% for cat in airline_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="dep_ap">From</label>
+            <select id="dep_ap" class="form-control" name="dep_ap" required>
+              {% for cat in airport_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="arr_ap">To</label>
+            <select id="arr_ap" class="form-control" name="arr_ap" required>
+              {% for cat in airport_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <hr />
+
+      <div class="row">
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="d_time">Departure time</label>
+            <input type="datetime-local" class="form-control" id="d_time" name="dep_time" required>
+          </div>
+
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="a_time">Arrival time</label>
+            <input type="datetime-local" class="form-control" id="a_time" name="arr_time" required>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="aircraft">Aircraft</label>
+            <select id="aircraft" class="form-control" name="aircraft" required>
+              {% for cat in aircraft_ch %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label for="fare">Fare</label>
+            <input type="number" min=1 step=1 class="form-control" id="fare" name="fare" required>
+          </div>
+        </div>
+
+      </div>
+
+      <br>
+
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-warning" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+      <br>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
